@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  background-color: darkseagreen;
+  height: 100%;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.content-wrapper {
+  margin-left: 20vw;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input {
+  font-size: 10px;
+}

@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCallback, useState } from "react";
+import Kanban from "./components/Kanban";
+import Sidebar from "./components/Sidebar";
+import "./global.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [selected, setSel] = useState(0);
+  const setSelected = useCallback(setSel, []);
+  const [add, setA] = useState(false);
+  const setAdd = useCallback(setA, []);
+  function clickHandler(e: MouseEvent<HTMLDivElement>) {
+    setAdd(false);
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-wrapper" onClick={clickHandler}>
+      <Sidebar setSelected={setSelected} add={add} setAdd={setAdd} />
+      <div className="content-wrapper">
+        <Kanban id={selected} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
