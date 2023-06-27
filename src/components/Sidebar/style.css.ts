@@ -7,7 +7,7 @@ export const wrapper = style({
   position: "sticky",
   backgroundColor: "#b4b9bae3",
   color: "#f6f7f8",
-  fontSize: 14,
+  fontSize: 16,
   padding: "5px 0",
   top: 0,
   left: 0,

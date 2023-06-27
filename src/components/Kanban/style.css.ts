@@ -13,7 +13,7 @@ export const wrapperKanban = style({
 });
 
 export const card = style({
-  fontSize: "12px",
+  fontSize: "16px",
   display: "flex",
   backgroundColor: "#f1f2f4",
   padding: "8px",
