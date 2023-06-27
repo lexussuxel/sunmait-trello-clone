@@ -3,7 +3,7 @@ import Table from "../Table";
 import LogBar from "../LogBar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { addButton, card, wrapperKanban, wrapperTables } from "./style.css";
+import { addButton, card, messageWrapper, wrapperKanban, wrapperTables } from "./style.css";
 import { useState } from "react";
 import AddInput from "../AddInput";
 import {
@@ -99,8 +99,8 @@ function Kanban() {
           </DragDropContext>
         </>
       ) : (
-        <div>
-          <p>Создайте свою первую доску! :)</p>
+        <div className={messageWrapper}>
+          <p>Выберите или создайте свою первую доску! :)</p>
         </div>
       )}
     </div>

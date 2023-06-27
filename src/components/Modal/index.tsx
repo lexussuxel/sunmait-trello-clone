@@ -22,6 +22,7 @@ function Modal({ close, task, table_id }: IModal) {
     dispatch(editTask({ task: { ...task, description }, table_id }));
     close();
   }
+  
   return (
     <div className={modalBackground}>
       <div className={modalWrapper}>

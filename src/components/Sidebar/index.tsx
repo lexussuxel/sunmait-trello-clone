@@ -56,6 +56,7 @@ function Sidebar({ add, setAdd }: ISidebar) {
     );
     dispatch(selectBoard(board_id));
     dispatch(addLog({ id: Date.now(), title: "Создание этой доски" }));
+    
     setTitleText("");
     setAdd(false);
   }

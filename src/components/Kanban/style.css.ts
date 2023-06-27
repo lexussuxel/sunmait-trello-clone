@@ -40,3 +40,13 @@ export const addButton = style([
     },
   },
 ]);
+
+export const messageWrapper = style({
+    backgroundColor:"#ffffff7d",
+    margin: "20vh auto",
+    borderRadius: 8,
+    fontSize: 32,
+    padding: 20,
+    width: "max-content",
+    color: "white"
+})
