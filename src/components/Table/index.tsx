@@ -1,15 +1,16 @@
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "../Task";
 import { card } from "../Kanban/style.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { Table, deleteTable, editTable } from "../../store/tableSlice";
 import { useState } from "react";
 import AddInput from "../AddInput";
 import { useDispatch } from "react-redux";
-import { addTask, cascadeDeleteTask } from "../../store/taskSlice";
-import { getNextId } from "../../utils";
-import { addLog } from "../../store/logSlice";
+import { Table } from "../../utils";
+import {
+  addLog,
+  editTable,
+  deleteTable,
+  addTask,
+} from "../../store/newBoardSlice";
 import { addButton, tableWrapper, title } from "./style.css";
 import { buttonsWraper, helperButton } from "../Sidebar/style.css";
 
@@ -19,20 +20,21 @@ interface ITableProps {
 }
 
 function TableComponent({ table, index }: ITableProps) {
-  const allTasks = useSelector((state: RootState) => state.taskSlice.tasks);
-  const tasks = allTasks.filter((task) => task.table_id === table.id);
-  const logs = useSelector((state: RootState) => state.logSlice.logs);
+  const tasks = table.tasks;
   const [addTaskState, setAddTask] = useState(false);
   const [edit, setEdit] = useState(false);
   const [titleEdit, setTitleEdit] = useState("");
   const dispatch = useDispatch();
-    console.log(allTasks)
   function add(title: string) {
-    dispatch(addTask({ id: getNextId(allTasks), table_id: table.id, title }));
+    dispatch(
+      addTask({
+        task: { id: Date.now(), title },
+        table_id: table.id,
+      })
+    );
     dispatch(
       addLog({
-        id: getNextId(logs),
-        board_id: table.board_id,
+        id: Date.now(),
         title: `Добавлена карточка ${title} в колонку ${table.title}`,
       })
     );
@@ -45,8 +47,12 @@ function TableComponent({ table, index }: ITableProps) {
   function handleDeleteTable(e: MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
     dispatch(deleteTable(table.id));
-    dispatch(addLog({id: getNextId(logs), title: `Удалена таблица ${table.title}`, board_id: table.board_id}))
-    dispatch(cascadeDeleteTask(table.id));
+    dispatch(
+      addLog({
+        id: Date.now(),
+        title: `Удалена таблица ${table.title}`,
+      })
+    );
   }
 
   function handleInput(e: KeyboardEvent<HTMLInputElement>) {
@@ -70,11 +76,7 @@ function TableComponent({ table, index }: ITableProps) {
   }
 
   return (
-    <Draggable
-      draggableId={`table-${table.id}`}
-      key={table.id}
-      index={index}
-    >
+    <Draggable draggableId={`table-${table.id}`} key={table.id} index={index}>
       {(provided: any) => (
         <div
           {...provided.dragHandleProps}
@@ -105,11 +107,15 @@ function TableComponent({ table, index }: ITableProps) {
               </>
             )}
           </div>
-          <Droppable droppableId={`tables-${table.id}`}>
+          <Droppable droppableId={`tables-${index}`}>
             {(provided: any) => (
-              <div {...provided.droppableProps} ref={provided.innerRef} className={tableWrapper}>
-                {tasks.map((task) => (
-                  <Task task={task} />
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={tableWrapper}
+              >
+                {tasks.map((task, i) => (
+                  <Task task={task} table_id={table.id} index={i} />
                 ))}
                 {addTaskState ? (
                   <AddInput setterClose={setAddTask} add={add} />

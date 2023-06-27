@@ -3,10 +3,13 @@ import { style } from "@vanilla-extract/css";
 export const wrapperTables = style({
   display: "flex",
   flexDirection: "row",
-  width: "100%",
-  minHeight: "80vh",
   columnGap: "5px",
-  marginTop: "10vh"
+  margin: "20px 10px 0 0",
+});
+
+export const wrapperKanban = style({
+  overflow: "auto",
+  width: "-webkit-fill-available",
 });
 
 export const card = style({
@@ -23,7 +26,7 @@ export const card = style({
   rowGap: "4px",
   height: "max-content",
   boxShadow: "0 1px 1px #091e4240,0 0 1px #091e424f",
-  width: "20vw",
+  minWidth: "20vw",
 });
 
 export const addButton = style([

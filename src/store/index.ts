@@ -1,15 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import boardSlice from "./boardSlice";
-import taskSlice from "./taskSlice";
-import tableSlice from "./tableSlice";
-import logSlice from "./logSlice";
+import newBoardSlice from "./newBoardSlice";
 
 export const store = configureStore({
   reducer: {
-    taskSlice,
-    tableSlice,
-    logSlice,
-    boardSlice,
+    newBoardSlice,
   },
 });
 

@@ -18,5 +18,5 @@ export const title = style({
 export const tableWrapper = style({
   rowGap: 5,
   display: "flex",
-  flexDirection: "column"
-})
+  flexDirection: "column",
+});

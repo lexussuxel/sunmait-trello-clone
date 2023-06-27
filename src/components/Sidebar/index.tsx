@@ -11,27 +11,24 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { useDispatch } from "react-redux";
-import { addBoard, deleteBoard, editBoard } from "../../store/boardSlice";
-import { getNextId } from "../../utils";
-import { addLog, cascadeDeleteLog } from "../../store/logSlice";
-import tableSlice, { deleteTable } from "../../store/tableSlice";
-import { cascadeDeleteTask } from "../../store/taskSlice";
+import {
+  addBoard,
+  deleteBoard,
+  editBoard,
+  addLog,
+  selectBoard,
+} from "../../store/newBoardSlice";
 
 interface ISidebar {
-  setSelected: React.Dispatch<React.SetStateAction<number>>;
   setAdd: React.Dispatch<React.SetStateAction<boolean>>;
   add: boolean;
 }
 
-function Sidebar({ setSelected, add, setAdd }: ISidebar) {
-  const boards = useSelector((state: RootState) => state.boardSlice.boards);
+function Sidebar({ add, setAdd }: ISidebar) {
+  const boards = useSelector((state: RootState) => state.newBoardSlice.boards);
   const [titleText, setTitleText] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [edit, setEdit] = useState(-1);
-  const logs = useSelector((state: RootState) => state.logSlice.logs);
-  const selectorTables = useSelector(
-    (state: RootState) => state.tableSlice.tables
-  );
   const dispatch = useDispatch();
 
   function handleInput(e: KeyboardEvent<HTMLInputElement>) {
@@ -53,29 +50,23 @@ function Sidebar({ setSelected, add, setAdd }: ISidebar) {
   }
 
   function handleBoardAdd() {
-    const board_id = getNextId(boards);
-    dispatch(addBoard({ id: board_id, title: titleText }));
+    const board_id = Date.now();
     dispatch(
-      addLog({ id: getNextId(logs), board_id, title: "Создание этой доски" })
+      addBoard({ id: board_id, title: titleText, tables: [], logs: [] })
     );
+    dispatch(selectBoard(board_id));
+    dispatch(addLog({ id: Date.now(), title: "Создание этой доски" }));
     setTitleText("");
     setAdd(false);
-    setSelected(board_id);
   }
 
   function handleBoardClick(id: number) {
-    setSelected(id);
+    dispatch(selectBoard(id));
   }
 
   function handleDeleteBoard(e: MouseEvent<HTMLDivElement>, id: number) {
     e.stopPropagation();
     dispatch(deleteBoard(id));
-    dispatch(cascadeDeleteLog(id));
-    const tables = selectorTables.filter((table) => table.board_id === id);
-    tables.forEach((table) => {
-      dispatch(deleteTable(table.id));
-      dispatch(cascadeDeleteTask(table.id));
-    });
   }
 
   function handleEditSubmit(id: number) {

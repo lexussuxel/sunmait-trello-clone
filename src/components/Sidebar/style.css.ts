@@ -3,13 +3,15 @@ import { style, styleVariants } from "@vanilla-extract/css";
 export const wrapper = style({
   display: "flex",
   flexDirection: "column",
-  width: "20vw",
-  height: "100%",
-  position: "fixed",
-  backgroundColor: "hsla(205,29.7%,85.5%,0.9)",
-  color: "#172B4D",
+  minWidth: "20vw",
+  position: "sticky",
+  backgroundColor: "#b4b9bae3",
+  color: "#f6f7f8",
   fontSize: 14,
   padding: "5px 0",
+  top: 0,
+  left: 0,
+  zIndex: 1,
 });
 
 const base_padding = {
@@ -20,7 +22,7 @@ export const title = style({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
-  borderBottom: "1px solid #172B4D",
+  borderBottom: "1px solid #f6f7f8",
   ...base_padding,
 });
 
@@ -45,13 +47,14 @@ export const tooltip = styleVariants({
     flexDirection: "column",
     position: "absolute",
     backgroundColor: "white",
-    borderRadius: "10px",
+    borderRadius: "5px",
     minWidth: "150px",
     boxShadow: "0px 8px 12px #091E4226, 0px 0px 1px #091E424F",
     top: "30px",
     left: "80%",
     rowGap: 5,
     padding: 8,
+    color: "#4f4f4f",
   },
   hidden: {
     display: "none",

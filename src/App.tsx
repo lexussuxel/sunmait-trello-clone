@@ -4,8 +4,6 @@ import Sidebar from "./components/Sidebar";
 import "./global.css";
 
 function App() {
-  const [selected, setSel] = useState(0);
-  const setSelected = useCallback(setSel, []);
   const [add, setA] = useState(false);
   const setAdd = useCallback(setA, []);
   function clickHandler(e: MouseEvent<HTMLDivElement>) {
@@ -13,10 +11,8 @@ function App() {
   }
   return (
     <div className="app-wrapper" onClick={clickHandler}>
-      <Sidebar setSelected={setSelected} add={add} setAdd={setAdd} />
-      <div className="content-wrapper">
-        <Kanban id={selected} />
-      </div>
+      <Sidebar add={add} setAdd={setAdd} />
+      <Kanban />
     </div>
   );
 }
