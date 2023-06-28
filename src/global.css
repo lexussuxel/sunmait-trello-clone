@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  background-color: darkseagreen;
+  height: 100vh;
+  background: url("./assets/background.jpeg") no-repeat fixed center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#root,
+.app-wrapper {
+  height: inherit;
+}
+.app-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input {
+  font-size: 10px;
+  border-radius: 8px;
+  padding: 8px;
+  outline: none;
+  border-style: double;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: lightgray;
+}
